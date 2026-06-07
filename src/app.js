@@ -11,6 +11,7 @@ const errorHandler = require("./middlewares/error.middleware");
 
 // Import routes
 const bannerRoutes = require("./routes/banner.route");
+const noticeRoutes = require("./routes/notice.route");
 
 // DNS resolution for MongoDB Atlas
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
@@ -64,8 +65,12 @@ app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-// Api Routes
+// Api Routes--------------->>>
+// Banner Routes
 app.use("/api/v1/banners", bannerRoutes);
+
+// Notice Routes
+app.use("/api/v1/notices", noticeRoutes);
 
 // Global Error Handler
 app.use((req, res, next) => {
