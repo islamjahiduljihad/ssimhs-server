@@ -6,6 +6,11 @@ const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
 const path = require("path");
 const dns = require("dns");
+const ApiError = require("./utils/ApiError");
+const errorHandler = require("./middlewares/error.middleware");
+
+// Import routes
+const bannerRoutes = require("./routes/banner.route");
 
 // DNS resolution for MongoDB Atlas
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
@@ -54,10 +59,19 @@ app.use((req, res, next) => {
 // Static files
 app.use(express.static(path.join(__dirname, "public")));
 
-// Routes
+// Routes for Health Check
 app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
 });
+
+// Api Routes
+app.use("/api/v1/banners", bannerRoutes);
+
+// Global Error Handler
+app.use((req, res, next) => {
+  next(new ApiError(404, `Can't find ${req.originalUrl} on this server!`));
+});
+app.use(errorHandler);
 
 // Export the app
 module.exports = app;
