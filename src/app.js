@@ -16,6 +16,7 @@ const campusHighlightRoutes = require("./routes/campusHighlight.route");
 const newsRoutes = require("./routes/news.route");
 const studentActivityRoutes = require("./routes/studentActivity.route");
 const teacherRoutes = require("./routes/teacher.route");
+const photoGalleryRoutes = require("./routes/photoGallery.route");
 
 // DNS resolution for MongoDB Atlas
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
@@ -87,6 +88,9 @@ app.use("/api/v1/student-activities", studentActivityRoutes);
 
 // Teacher Routes
 app.use("/api/v1/teachers", teacherRoutes);
+
+// Photo Gallery Routes
+app.use("/api/v1/gallery", photoGalleryRoutes);
 
 // Global Error Handler
 app.use((req, res, next) => {
