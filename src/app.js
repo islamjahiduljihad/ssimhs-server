@@ -12,6 +12,7 @@ const errorHandler = require("./middlewares/error.middleware");
 // Import routes
 const bannerRoutes = require("./routes/banner.route");
 const noticeRoutes = require("./routes/notice.route");
+const campusHighlightRoutes = require("./routes/campusHighlight.route");
 
 // DNS resolution for MongoDB Atlas
 dns.setServers(["8.8.8.8", "8.8.4.4"]);
@@ -71,6 +72,9 @@ app.use("/api/v1/banners", bannerRoutes);
 
 // Notice Routes
 app.use("/api/v1/notices", noticeRoutes);
+
+// Campus Highlight Routes
+app.use("/api/v1/campus-highlights", campusHighlightRoutes);
 
 // Global Error Handler
 app.use((req, res, next) => {
